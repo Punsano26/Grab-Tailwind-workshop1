@@ -4,10 +4,10 @@ import { Card } from "./Card";
 // import { restaurants } from "../data/dataRestaurant";
 
 const Shop = () => {
-  const [restaurant, setRestaurant] = useState([]);
+  const [restaurants, setRestaurants] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/restaurant")
+    fetch("http://localhost:3000/restaurants")
       .then(
         // convert เป็น jason
         (res) => {
@@ -16,7 +16,7 @@ const Shop = () => {
       )
       // เรียกใช้ State
       .then((response) => {
-        setRestaurant(response);
+        setRestaurants(response);
       })
       // เปลี่ยนเป็น messsage
       .catch((err) => {
@@ -27,14 +27,14 @@ const Shop = () => {
   return (
     <>
       <div className="flex flex-wrap justify-center gap-7">
-        {restaurant &&
-          restaurant.map((restaurants) => {
+        {restaurants &&
+          restaurants.map((restaurant) => {
             return (
               <Card
-                key={restaurants.id}
-                img={restaurants.img}
-                title={restaurants.title}
-                type={restaurants.type}
+                key={restaurant.id}
+                img={restaurant.img}
+                title={restaurant.title}
+                type={restaurant.type}
               />
             );
           })}
