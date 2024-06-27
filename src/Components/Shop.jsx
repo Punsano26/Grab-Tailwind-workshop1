@@ -3,26 +3,8 @@ import { Card } from "./Card";
 
 // import { restaurants } from "../data/dataRestaurant";
 
-const Shop = () => {
-  const [restaurants, setRestaurants] = useState([]);
-
-  useEffect(() => {
-    fetch("http://localhost:3000/restaurants")
-      .then(
-        // convert เป็น jason
-        (res) => {
-          return res.json();
-        }
-      )
-      // เรียกใช้ State
-      .then((response) => {
-        setRestaurants(response);
-      })
-      // เปลี่ยนเป็น messsage
-      .catch((err) => {
-        console.log(err.message);
-      });
-  }, []);
+const Shop = ({restaurants}) => {
+  
 
   return (
     <>
