@@ -8,9 +8,10 @@ const Nav = () => {
   };
 
   return (
-    <nav className="bg-black p-4">
+    <nav className="bg-black p-8">
       <div className="flex items-center justify-between">
-        <div className="text-white text-2xl font-semibold">Grab Food Coppy</div>
+        <img src="https://w7.pngwing.com/pngs/740/105/png-transparent-grab-application-hd-logo.png" alt="" className="w-16 h-8"/>
+        {/* <div className="text-white text-2xl font-semibold">Grab Food Coppy</div> */}
 
         {/* toggle menu */}
         <div className="md:hidden">
@@ -32,16 +33,16 @@ const Nav = () => {
         </div>
         <ul className="hidden md:flex space-x-4">
           <li>
-            <a href="#" className="text-white"></a>Home
+            <a href="/" className="text-white">Home</a>
           </li>
           <li>
-            <a href="#" className="text-white"></a>Service
+            <a href="/add" className="text-white">Add Restaurant</a>
           </li>
           <li>
-            <a href="#" className="text-white"></a>About
+            <a href="#" className="text-white">About</a>
           </li>
           <li>
-            <a href="#" className="text-white"></a>Report
+            <a href="#" className="text-white">Report</a>
           </li>
         </ul>
       </div>
@@ -49,16 +50,16 @@ const Nav = () => {
       {isMenuOpen ? (
       <ul className="flex-col md:hidden">
           <li className="py-3"> 
-            <a href="#" className="text-white"></a>Home
+            <a href="#" className="text-white">Home</a>
           </li>
           <li className="py-3">
-            <a href="#" className="text-white"></a>Service
+            <a href="/add" className="text-white">Add Restauran</a>
           </li >
           <li className="py-3">
-            <a href="#" className="text-white"></a>About
+            <a href="#" className="text-white">About</a>
           </li>
           <li className="py-3">
-            <a href="#" className="text-white"></a>Report
+            <a href="#" className="text-white">Report</a>
           </li>
         </ul>
        )  : null}
