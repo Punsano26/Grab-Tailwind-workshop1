@@ -1,6 +1,6 @@
 
 import React from "react";
-import { NameAndSearch, Search, Shop, Nav } from "../Components";
+import { NameAndSearch, Search, Shop} from "../Components";
 import { useState, useEffect } from "react";
 const Home = () => {
   const [restaurants, setRestaurants] = useState([]);
@@ -26,7 +26,7 @@ const Home = () => {
   return (
     <>
       <div className="container">
-        <Nav />
+        
         <NameAndSearch />
         <Search
           restaurants={restaurants}
