@@ -1,4 +1,5 @@
 import React from "react";
+import Swal from "sweetalert2";
 
 export const Card = ({ id, img, title, type }) => {
   const handleDelete = async (id) => {
@@ -6,11 +7,24 @@ export const Card = ({ id, img, title, type }) => {
       const response = await fetch("http://localhost:3000/restaurants/" + id, {
         method: "DELETE",
       }); //เราส่ง http reqauis ไปโดย method post
-      if (response.ok) {
-        //ถ้าสำเร็จ จะข้อควมแจ้งเตือน
-        alert("Restaurant Delete success fully id =" + id + "is delete");
-        window.location.reload();
-      }
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your file has been deleted.",
+            icon: "success",
+          });
+          window.location.reload()
+        }
+      });
     } catch (error) {
       console.log(error);
     }
