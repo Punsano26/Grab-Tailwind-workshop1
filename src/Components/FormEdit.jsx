@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
-
+import { Link, useParams, useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2';
 const FormEdit = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [restaurant, setRestaurant] = useState({
     img: "",
@@ -31,7 +32,8 @@ const FormEdit = () => {
     setRestaurant({ ...restaurant, [name]: value });
   };
 
-  const handleSummit = async () => {
+  const handleSummit = async (e) => {
+    e.preventDefault();
     try {
       const response = await fetch("http://localhost:3000/restaurants/" + id, {
         method: "PUT",
@@ -40,9 +42,22 @@ const FormEdit = () => {
       }); //เราส่ง http reqauis ไปโดย method post
       if (response.ok) {
         //ถ้าสำเร็จ จะข้อควมแจ้งเตือน
-        alert("Restaurant add success fully!");
+        Swal.fire({
+          icon: 'success',
+          title: 'สำเร็จ!',
+          text: 'แก้ไขข้อมูลร้านอาหารเรียบร้อย!'
+        }).then(() => {
+          navigate('/'); 
+        });
       }
-    } catch (error) {}
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong!',
+        footer: error.message
+      });
+    }
   };
 
   return (

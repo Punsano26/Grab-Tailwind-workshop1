@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-
+import Swal from 'sweetalert2';
 const Formadd = () => {
   const [restaurant, setRestaurant] = useState({
     img: "",
@@ -20,22 +20,36 @@ const Formadd = () => {
     try {
       const response = await fetch("http://localhost:3000/restaurants/", {
         method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify(restaurant),
       });
 
       if (response.ok) {
-        alert("Restaurant added successfully!");
-        setRestaurant({
+        // alert("Restaurant added successfully!");
+        Swal.fire({
+          icon: 'success',
+          title: 'Finished!',
+          text: 'เพิ่มร้านหารเสร็จแล้ว',
+        }).then(() => {
+          setRestaurant({
           img: "",
           title: "",
           type: "",
+        });
         });
         navigate("/"); 
       } else {
         alert("Failed to add restaurant.");
       }
     } catch (error) {
-      console.error("Error adding restaurant:", error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong!',
+        footer: error.message
+      });
     }
   };
 
