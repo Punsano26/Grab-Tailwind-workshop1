@@ -1,30 +1,31 @@
 import { useState, useEffect } from "react";
-import { useNavigate, Link, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+
 const FormEdit = () => {
-     const { id } = useParams();
+  const { id } = useParams();
   const [restaurant, setRestaurant] = useState({
     img: "",
     title: "",
     type: "",
   });
-    useEffect(() => {
-      fetch("http://localhost:3000/restaurants/" + id)
-        .then(
-          // convert เป็น jason
-          (res) => {
-            return res.json();
-          }
-        )
-        // เรียกใช้ State
-        .then((response) => {
-          setRestaurant(response);
-        })
-        // เปลี่ยนเป็น messsage
-        .catch((err) => {
-          console.log(err.message);
-        });
-    }, [id]);
-   
+  useEffect(() => {
+    fetch("http://localhost:3000/restaurants/" + id)
+      .then(
+        // convert เป็น jason
+        (res) => {
+          return res.json();
+        }
+      )
+      // เรียกใช้ State
+      .then((response) => {
+        setRestaurant(response);
+      })
+      // เปลี่ยนเป็น messsage
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, [id]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setRestaurant({ ...restaurant, [name]: value });
@@ -40,7 +41,6 @@ const FormEdit = () => {
       if (response.ok) {
         //ถ้าสำเร็จ จะข้อควมแจ้งเตือน
         alert("Restaurant add success fully!");
-       
       }
     } catch (error) {}
   };
@@ -52,7 +52,7 @@ const FormEdit = () => {
           <form className="container" onSubmit={handleSummit}>
             <div className="card">
               <div className="card-title justify-center scroll-pt-px flex flex-col">
-                <h2 className="text-3xl">Add Restaurant in Grab!</h2>
+                <h2 className="text-3xl">Edit Restaurant in Grab!</h2>
                 <div className="items-center">
                   <img
                     className="w-32 center"
@@ -68,7 +68,7 @@ const FormEdit = () => {
                     <div className="form-group">
                       <label htmlFor="img">Image</label>
                       {restaurant.img && (
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 py-4">
                           <img src={restaurant.img} className="h-32" alt="" />
                         </div>
                       )}
@@ -79,11 +79,11 @@ const FormEdit = () => {
                         id="img"
                         value={restaurant.img}
                         onChange={handleChange}
-                        className="form-control"
+                        className="form-control border-double border-4 border-sky-500"
                       />
                     </div>
                   </div>
-                  <div className="col-lg-12 text-center py-2 text-lg">
+                  <div className="col-lg-12 text-center py-3 text-lg">
                     <div className="form-group">
                       <label htmlFor="title">Your title restaurant</label>
                       <input
@@ -93,11 +93,11 @@ const FormEdit = () => {
                         id="title"
                         value={restaurant.title}
                         onChange={handleChange}
-                        className="form-control"
+                        className="form-control border-double border-4 border-sky-500"
                       />
                     </div>
                   </div>
-                  <div className="col-lg-12 text-center py-2 text-lg">
+                  <div className="col-lg-12 text-center py-3 text-lg">
                     <div className="form-group">
                       <label htmlFor="type">Description</label>
                       <input
@@ -107,12 +107,12 @@ const FormEdit = () => {
                         id="type"
                         value={restaurant.type}
                         onChange={handleChange}
-                        className="form-control"
+                        className="form-control border-double border-4 border-sky-500"
                       />
                     </div>
                   </div>
 
-                  <div className="col-lg-12 text-center py-2 text-lg">
+                  <div className="col-lg-12 text-center py-3 text-lg">
                     <div className="form-group">
                       <button className="btn btn-success mx-5" type="submit">
                         Edit Now!

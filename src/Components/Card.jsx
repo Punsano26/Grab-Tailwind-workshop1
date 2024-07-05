@@ -9,7 +9,7 @@ export const Card = ({ id, img, title, type }) => {
       }); //เราส่ง http reqauis ไปโดย method post
       Swal.fire({
         title: "Are you sure?",
-        text: "You won't be able to revert this!",
+        text: "Do you want to delete this restaurant?",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",

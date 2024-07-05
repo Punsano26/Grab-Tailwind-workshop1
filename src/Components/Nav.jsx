@@ -10,7 +10,7 @@ const Nav = () => {
   return (
     <nav className="bg-black p-8">
       <div className="flex items-center justify-between">
-        <img src="https://w7.pngwing.com/pngs/740/105/png-transparent-grab-application-hd-logo.png" alt="" className="w-16 h-8"/>
+        <img src="https://create.grabmerchantshop.com/theme/static/images/grabmart-logo.png" alt="" className="w-50 h-8"/>
         {/* <div className="text-white text-2xl font-semibold">Grab Food Coppy</div> */}
 
         {/* toggle menu */}
