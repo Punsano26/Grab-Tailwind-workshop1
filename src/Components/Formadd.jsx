@@ -31,7 +31,7 @@ const Formadd = () => {
         Swal.fire({
           icon: 'success',
           title: 'Finished!',
-          text: 'เพิ่มร้านหารเสร็จแล้ว',
+          text: 'เพิ่มร้านอาหารหารเสร็จแล้ว',
         }).then(() => {
           setRestaurant({
           img: "",
