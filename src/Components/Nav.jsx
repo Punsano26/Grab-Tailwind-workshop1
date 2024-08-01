@@ -1,6 +1,10 @@
 import React, { useState } from "react";
+import UserProfile from "./UserProfile";
+import RegiterButton from "./RegiterButton";
+import LoginButton from "./LoginButton";
 
 const Nav = () => {
+  const user = null;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -8,22 +12,27 @@ const Nav = () => {
   };
 
   return (
-    <nav className="bg-black p-8">
+    <nav className="bg-black p-4 md:p-6">
       <div className="flex items-center justify-between">
-        <img src="https://create.grabmerchantshop.com/theme/static/images/grabmart-logo.png" alt="" className="w-50 h-8"/>
-        {/* <div className="text-white text-2xl font-semibold">Grab Food Coppy</div> */}
+        <img
+          src="https://create.grabmerchantshop.com/theme/static/images/grabmart-logo.png"
+          alt="Logo"
+          className="w-32 h-8 md:w-40 md:h-10"
+        />
 
-        {/* toggle menu */}
+        {/* Toggle menu */}
         <div className="md:hidden">
-          <button id="menu-toggle" className="text-white" onClick={toggleMenu}>
-            
-            
+          <button
+            id="menu-toggle"
+            className="text-white focus:outline-none"
+            onClick={toggleMenu}
+          >
             <svg
               fill="none"
               stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
               viewBox="0 0 24 24"
               className="w-6 h-6"
             >
@@ -31,38 +40,79 @@ const Nav = () => {
             </svg>
           </button>
         </div>
-        <ul className="hidden md:flex space-x-4">
+
+        {/* Desktop Menu */}
+        <ul className="hidden md:flex space-x-6 text-lg font-medium">
           <li>
-            <a href="/" className="text-white">Home</a>
+            <a href="/" className="text-white hover:text-gray-300">
+              Home
+            </a>
           </li>
           <li>
-            <a href="/add" className="text-white">Add Restaurant</a>
+            <a href="/add" className="text-white hover:text-gray-300">
+              Add Restaurant
+            </a>
           </li>
           <li>
-            <a href="#" className="text-white">About</a>
+            <a href="#" className="text-white hover:text-gray-300">
+              About
+            </a>
           </li>
           <li>
-            <a href="#" className="text-white">Report</a>
+            <a href="#" className="text-white hover:text-gray-300">
+              Report
+            </a>
           </li>
         </ul>
+
+        {/* User Profile or Auth Buttons */}
+        <div className="hidden md:flex items-center space-x-4">
+          {user ? (
+            <UserProfile />
+          ) : (
+            <div className="space-x-2">
+              <RegiterButton />
+              <LoginButton />
+            </div>
+          )}
+        </div>
       </div>
+
       {/* Mobile Menu */}
-      {isMenuOpen ? (
-      <ul className="flex-col md:hidden">
-          <li className="py-3"> 
-            <a href="#" className="text-white">Home</a>
+      {isMenuOpen && (
+        <ul className="flex flex-col mt-4 space-y-3 md:hidden">
+          <li>
+            <a href="/" className="text-white hover:text-gray-300">
+              Home
+            </a>
           </li>
-          <li className="py-3">
-            <a href="/add" className="text-white">Add Restauran</a>
-          </li >
-          <li className="py-3">
-            <a href="#" className="text-white">About</a>
+          <li>
+            <a href="/add" className="text-white hover:text-gray-300">
+              Add Restaurant
+            </a>
           </li>
-          <li className="py-3">
-            <a href="#" className="text-white">Report</a>
+          <li>
+            <a href="#" className="text-white hover:text-gray-300">
+              About
+            </a>
           </li>
+          <li>
+            <a href="#" className="text-white hover:text-gray-300">
+              Report
+            </a>
+          </li>
+          {user ? (
+            <li>
+              <UserProfile />
+            </li>
+          ) : (
+            <li className="flex space-x-2">
+              <RegiterButton />
+              <LoginButton />
+            </li>
+          )}
         </ul>
-       )  : null}
+      )}
     </nav>
   );
 };
