@@ -2,49 +2,54 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthService from "../services/auth.service";
 import Swal from "sweetalert2";
-import { Navigate } from "react-router-dom";
 
 const Register = () => {
-    const [user, setUser] = useState({
-        username: "",
-        email: "",
-        password: "",
-    });
-    const navigate = useNavigate();
-    const handleChange = (e) =>{
-        const {name, value} = e.target;
-        
-    setUser({...user, [name]: value});
-    } ;
-    const handleSubmit = () => {
-     try {
-        const register = AuthService.register(user.username, user.email,user.password );
-        if(register.status === 200){
-               Swal.fire({
-                 title: "User Registered Successfully",
-                 text: Register.data.message,
-                 icon: "success",
-               });
-               navigate("/login");
-        }
-    } catch (error) {
-        Swal.fire({
-          title: "User Registered error",
-          text: Register.data.message,
-          icon: "error",
-        });
-    }
-    };
-    const handleCancel = () => {
+  const [user, setUser] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
 
-  
-        setUser({
-            username: "",
-            email: "",
-            password: "",
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setUser({ ...user, [name]: value });
+  };
+  const handleSubmit = async () => {
+    try {
+      const register = AuthService.register(
+        user.username,
+        user.email,
+        user.password
+      );
+      if (register.status === 200) {
+        Swal.fire({
+          title: "User Registered Successfully",
+          text: register.data.message,
+          icon: "success",
+          timer: 1500,
         });
-     
+        setUser({ username: "", email: "", password: "" });
+        navigate("/login");
+      }
+    } catch (error) {
+      Swal.fire({
+        title: "User Registered error",
+        text: error.response.data.message,
+        icon: "error",
+      });
     }
+  };
+  const handleCancel = () => {
+    setUser({
+      username: "",
+      email: "",
+      password: "",
+    });
+    navigate("/");
+  };
   return (
     <div className="container mx-auto max-w-lg my-20 p-6 bg-white shadow-md rounded-md">
       <h1 className="text-3xl font-bold mb-8 text-center text-gray-800">
@@ -69,7 +74,7 @@ const Register = () => {
               placeholder="Email"
               onChange={handleChange}
               name="email"
-              
+              required
             />
           </div>
         </div>
@@ -91,7 +96,6 @@ const Register = () => {
               placeholder="Username"
               onChange={handleChange}
               name="username"
-             
             />
           </div>
         </div>
@@ -117,12 +121,12 @@ const Register = () => {
               placeholder="Password"
               onChange={handleChange}
               name="password"
-              
             />
           </div>
         </div>
 
         <div className="flex justify-between">
+          {" "}
           <button
             onClick={handleSubmit}
             className="w-full md:w-auto bg-indigo-500 text-white font-semibold py-2 px-4 rounded-md hover:bg-indigo-600 focus:outline-none"
@@ -130,7 +134,7 @@ const Register = () => {
             Register
           </button>
           <button
-            onClick={handleSubmit}
+            onClick={handleCancel}
             className="w-full md:w-auto ml-2 bg-red-500 text-white font-semibold py-2 px-4 rounded-md hover:bg-red-600 focus:outline-none"
           >
             Cancel
