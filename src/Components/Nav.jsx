@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import UserProfile from "./UserProfile";
 import RegiterButton from "./RegiterButton";
 import LoginButton from "./LoginButton";
+import { useAuthContext } from "../context/AuthContext";
 
 const Nav = () => {
-  const user = null;
+  const {user, logout} = useAuthContext();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {

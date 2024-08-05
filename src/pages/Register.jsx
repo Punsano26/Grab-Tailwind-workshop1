@@ -18,19 +18,19 @@ const Register = () => {
     setUser({ ...user, [name]: value });
   };
   const handleSubmit = async () => {
+    // e.preventDefault();
     try {
-      const register = AuthService.register(
+      const register = await AuthService.register(
         user.username,
         user.email,
         user.password
       );
       if (register.status === 200) {
-        Swal.fire({
-          title: "User Registered Successfully",
-          text: register.data.message,
-          icon: "success",
-          timer: 1500,
-        });
+Swal.fire({
+  title: "User Registration",
+  text: "That thing is still around?",
+  icon: "success",
+});
         setUser({ username: "", email: "", password: "" });
         navigate("/login");
       }
