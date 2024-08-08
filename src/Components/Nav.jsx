@@ -5,7 +5,8 @@ import LoginButton from "./LoginButton";
 import { useAuthContext } from "../context/AuthContext";
 
 const Nav = () => {
-  const {user, logout} = useAuthContext();
+  const { user } = useAuthContext();
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -68,6 +69,21 @@ const Nav = () => {
 
         {/* User Profile or Auth Buttons */}
         <div className="hidden md:flex items-center space-x-4">
+          {user && (
+            <div>
+              welcome,{" "}
+              <span className="font-bold">
+                {user.username}
+                {""}
+                {user.roles.map((role) =>{
+                <div className="badge badge-secondary text-xs">
+                  {roles}
+                  {""}
+                </div>
+                })}
+              </span>
+            </div>
+          )}
           {user ? (
             <UserProfile />
           ) : (

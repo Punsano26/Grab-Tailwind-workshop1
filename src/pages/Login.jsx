@@ -1,15 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AuthService from "../services/auth.service";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
+
 const Login = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState({
     username: "",
     password: "",
   });
-  const { login } = useAuthContext();
+  
+  const { login, user: loggedInUser } = useAuthContext();
+  useEffect(() => {
+    if (loggedInUser) {
+      navigate("/");
+    }
+  }, [loggedInUser]);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUser((user) => ({ ...user, [name]: value }));
@@ -17,22 +24,22 @@ const Login = () => {
 
   const handleSubmit = async () => {
     try {
-      const currentUser = await AuthService.login(username, password);
-      login(currentUser);
+      const currentUser = await AuthService.login(user.username, user.password);
+      console;
       setUser({
         username: "",
         password: "",
       });
-       if (register.status === 200) {
-         Swal.fire({
-           title: "User Registration",
-           text: "Login successfully",
-           icon: "success",
-         });
-         setUser({ username: "",  password: "" });
-         navigate("/");
-       }
-      
+      if (currentUser.status === 200) {
+        login(currentUser.data);
+        Swal.fire({
+          title: "User Registration",
+          text: "Login successfully",
+          icon: "success",
+        });
+        setUser({ username: "", password: "" });
+        navigate("/");
+      }
     } catch (error) {
       Swal.fire({
         title: "User Registered error",
@@ -42,14 +49,14 @@ const Login = () => {
     }
   };
 
-    const handleCancel = () => {
-      setUser({
-        username: "",
-        email: "",
-        password: "",
-      });
-      navigate("/");
-    };
+  const handleCancel = () => {
+    setUser({
+      username: "",
+      email: "",
+      password: "",
+    });
+    navigate("/");
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">

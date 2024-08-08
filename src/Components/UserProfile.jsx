@@ -1,6 +1,12 @@
-import React from 'react'
+import React from "react";
+import { useAuthContext } from "../context/AuthContext"; // แก้ไข import จาก userAuthContext เป็น useAuthContext
 
 const UserProfile = () => {
+  const { logout } = useAuthContext(); 
+  const handleLogout = () => {
+    logout();
+  };
+
   return (
     <div className="dropdown dropdown-end">
       <div
@@ -28,12 +34,12 @@ const UserProfile = () => {
         <li>
           <a>Settings</a>
         </li>
-        <li>
+        <li onClick={handleLogout}>
           <a>Logout</a>
         </li>
       </ul>
     </div>
   );
-}
+};
 
-export default UserProfile
+export default UserProfile;

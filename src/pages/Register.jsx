@@ -19,6 +19,7 @@ const Register = () => {
   };
   const handleSubmit = async () => {
     // e.preventDefault();
+    console.log(AuthService.register());
     try {
       const register = await AuthService.register(
         user.username,
@@ -26,19 +27,20 @@ const Register = () => {
         user.password
       );
       if (register.status === 200) {
-Swal.fire({
-  title: "User Registration",
-  text: "That thing is still around?",
-  icon: "success",
-});
+        Swal.fire({
+          title: "User Registration",
+          text: register.data.message,
+          icon: "success",
+        });
         setUser({ username: "", email: "", password: "" });
         navigate("/login");
       }
     } catch (error) {
       Swal.fire({
         title: "User Registered error",
-        text: error.response.data.message,
+        text: error.response ? error.response.data.message : "Unknown error",
         icon: "error",
+        timer: 1500,
       });
     }
   };
