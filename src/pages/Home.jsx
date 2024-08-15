@@ -19,7 +19,7 @@ const Home = () => {
       const response = await RestaurantService.getAllRestaurant();
       
       if(response.status === 200  ) {
-        console.log("if");
+        console.log(response.data);
         
       setRestaurants(response.data);
       setFilterRestaurants(response.data);
