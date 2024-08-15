@@ -4,26 +4,37 @@ import { NameAndSearch, Search, Shop} from "../Components";
 import { useState, useEffect } from "react";
 import RestaurantService from "../services/restaurant.service";
 import Swal from "sweetalert2";
+
+
 const Home = () => {
   const [restaurants, setRestaurants] = useState([]);
   const [filtedRestaurants, setFilterRestaurants] = useState([]);
    useEffect(() => {
+
+
     const getAllRestaurant = async () => {
 
     
     try {
-      const response = RestaurantService.getAllRestaurant();
-      if(response.status === 200){
-        setRestaurants(response.data);
-        setFilterRestaurants(response.data);
+      const response = await RestaurantService.getAllRestaurant();
+      
+      if(response.status === 200  ) {
+        console.log("if");
+        
+      setRestaurants(response.data);
+      setFilterRestaurants(response.data);
       }
+     
     } catch (error) {
+      
       Swal.fire({
         title: "Get All Restaurant error",
         text: error?.response?.data?.message || error.message,
         icon: "error",
       });
     }
+    console.log();
+    
   }
 
   //   fetch("http://localhost:3000/restaurants")

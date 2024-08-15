@@ -64,7 +64,7 @@ const Login = () => {
         <h1 className="text-2xl font-bold mb-6 text-center text-gray-800">
           Login
         </h1>
-        <form className="space-y-4">
+        <label className="space-y-4">
           <div className="flex flex-col gap-2">
             <label className="text-gray-600 flex items-center">
               <svg
@@ -124,7 +124,7 @@ const Login = () => {
           >
             Cancel
           </button>
-        </form>
+        </label>
       </div>
     </div>
   );

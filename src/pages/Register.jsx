@@ -5,8 +5,8 @@ import Swal from "sweetalert2";
 
 const Register = () => {
   const [user, setUser] = useState({
-    username: "",
     email: "",
+    username: "",
     password: "",
   });
 
@@ -22,8 +22,8 @@ const Register = () => {
     console.log(AuthService.register());
     try {
       const register = await AuthService.register(
-        user.username,
         user.email,
+        user.username,
         user.password
       );
       if (register.status === 200) {
@@ -32,7 +32,7 @@ const Register = () => {
           text: register.data.message,
           icon: "success",
         });
-        setUser({ username: "", email: "", password: "" });
+        setUser({  email: "",username: "", password: "" });
         navigate("/login");
       }
     } catch (error) {
@@ -46,8 +46,8 @@ const Register = () => {
   };
   const handleCancel = () => {
     setUser({
-      username: "",
       email: "",
+      username: "",
       password: "",
     });
     navigate("/");
@@ -57,7 +57,7 @@ const Register = () => {
       <h1 className="text-3xl font-bold mb-8 text-center text-gray-800">
         Register
       </h1>
-      <form className="space-y-6">
+      <label className="space-y-6">
         <div className="flex flex-col gap-2">
           <label className="text-gray-600">Email</label>
           <div className="relative">
@@ -142,7 +142,7 @@ const Register = () => {
             Cancel
           </button>
         </div>
-      </form>
+      </label>
     </div>
   );
 };

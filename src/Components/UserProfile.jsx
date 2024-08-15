@@ -34,8 +34,8 @@ const UserProfile = () => {
         <li>
           <a>Settings</a>
         </li>
-        <li onClick={handleLogout}>
-          <a>Logout</a>
+        <li >
+          <a onClick={handleLogout}>Logout</a>
         </li>
       </ul>
     </div>

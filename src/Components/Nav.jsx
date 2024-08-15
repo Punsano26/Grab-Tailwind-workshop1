@@ -69,7 +69,7 @@ const Nav = () => {
 
         {/* User Profile or Auth Buttons */}
         <div className="hidden md:flex items-center space-x-4">
-          {user && (
+          {/* {user && (
             <div>
               welcome,{" "}
               <span className="font-bold">
@@ -83,7 +83,7 @@ const Nav = () => {
                 })}
               </span>
             </div>
-          )}
+          )} */}
           {user ? (
             <UserProfile />
           ) : (
