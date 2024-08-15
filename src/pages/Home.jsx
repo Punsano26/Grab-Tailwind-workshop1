@@ -37,22 +37,6 @@ const Home = () => {
     
   }
 
-  //   fetch("http://localhost:3000/restaurants")
-  //     .then(
-  //       // convert เป็น jason
-  //       (res) => {
-  //         return res.json();
-  //       }
-  //     )
-  //     // เรียกใช้ State
-  //     .then((response) => {
-  //       setRestaurants(response);
-  //       setFilterRestaurants(response);
-  //     })
-  //     // เปลี่ยนเป็น messsage
-  //     .catch((err) => {
-  //       console.log(err.message);
-  //     });
   getAllRestaurant();
   }, []);
   return (
