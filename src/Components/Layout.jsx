@@ -6,8 +6,9 @@ import Footer from "./Footer";
 const Layout = () => {
   return (
     <AuthProvider>
-      <div className="h-screen">
-        <Nav />
+      <Nav />
+      <div className="my-9">
+        
         <Outlet />
       </div>
       <Footer />

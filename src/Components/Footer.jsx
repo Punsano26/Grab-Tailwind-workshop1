@@ -1,7 +1,7 @@
 import React from "react";
 
 const Footer = () => {
-  return;
+  return(
   <>
     <footer className="footer bg-neutral text-neutral-content p-10">
       <aside>
@@ -61,8 +61,9 @@ const Footer = () => {
         </div>
       </nav>
     </footer>
-    ;
-  </>;
+    
+  </>
+  )
 };
 
 export default Footer;
