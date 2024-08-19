@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Swal from 'sweetalert2';
+import RestaurantService from "../services/restaurant.service";
 const Formadd = () => {
   const [restaurant, setRestaurant] = useState({
     img: "",
@@ -16,41 +17,59 @@ const Formadd = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // ป้องกันการ Reface ของการส่งฟอร์ม
     try {
-      const response = await fetch("http://localhost:3000/restaurants/", {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(restaurant),
-      });
-
-      if (response.ok) {
-        // alert("Restaurant added successfully!");
+      const response = await RestaurantService.addRestaurant(id, restaurant);
+      if (response.status === 200) {
         Swal.fire({
-          icon: 'success',
-          title: 'Finished!',
-          text: 'เพิ่มร้านอาหารหารเสร็จแล้ว',
-        }).then(() => {
-          setRestaurant({
-          img: "",
-          title: "",
-          type: "",
+          icon: "success",
+          title: "สำเร็จ!",
+          text: response.data.message,
         });
-        });
-        navigate("/"); 
-      } else {
-        alert("Failed to add restaurant.");
+
+        navigate("/");
       }
     } catch (error) {
       Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Something went wrong!',
-        footer: error.message
+        icon: "error",
+        title: "Restaurant Update",
+        text: error?.response?.data?.message || error.message,
       });
     }
+    // e.preventDefault(); // ป้องกันการ Reface ของการส่งฟอร์ม
+    // try {
+    //   const response = await fetch("http://localhost:3000/restaurants/", {
+    //     method: "POST",
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify(restaurant),
+    //   });
+
+    //   if (response.ok) {
+    //     // alert("Restaurant added successfully!");
+    //     Swal.fire({
+    //       icon: 'success',
+    //       title: 'Finished!',
+    //       text: 'เพิ่มร้านอาหารหารเสร็จแล้ว',
+    //     }).then(() => {
+    //       setRestaurant({
+    //       img: "",
+    //       title: "",
+    //       type: "",
+    //     });
+    //     });
+    //     navigate("/"); 
+    //   } else {
+    //     alert("Failed to add restaurant.");
+    //   }
+    // } catch (error) {
+    //   Swal.fire({
+    //     icon: 'error',
+    //     title: 'Oops...',
+    //     text: 'Something went wrong!',
+    //     footer: error.message
+    //   });
+    // }
   };
 
   return (

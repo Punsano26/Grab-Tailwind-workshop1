@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
+import RestaurantService from "../services/restaurant.service";
 const FormEdit = () => {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -9,7 +10,13 @@ const FormEdit = () => {
     title: "",
     type: "",
   });
+  //2. Get restaurant By ID
   useEffect(() => {
+    RestaurantService.getRestaurantByID(id).then((response) => {
+      if (response.status === 200) {
+        setRestaurant(response.data);
+      }
+    });
     fetch("http://localhost:3000/restaurants/" + id)
       .then(
         // convert เป็น jason
@@ -33,29 +40,22 @@ const FormEdit = () => {
   };
 
   const handleSummit = async (e) => {
-    e.preventDefault();
     try {
-      const response = await fetch("http://localhost:3000/restaurants/" + id, {
-        method: "PUT",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(restaurant),
-      }); //เราส่ง http reqauis ไปโดย method post
-      if (response.ok) {
-        //ถ้าสำเร็จ จะข้อควมแจ้งเตือน
+      const response = await RestaurantService.editRestaurant(id, restaurant);console.log(response.data);
+      if (response.status === 200) {
         Swal.fire({
-          icon: 'success',
-          title: 'สำเร็จ!',
-          text: 'แก้ไขข้อมูลร้านอาหารเรียบร้อย!'
-        }).then(() => {
-          navigate('/'); 
+          icon: "success",
+          title: "สำเร็จ!",
+          text: response.data.message,
         });
+        
+        navigate("/");
       }
     } catch (error) {
       Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Something went wrong!',
-        footer: error.message
+        icon: "error",
+        title: "Restaurant Update",
+        text: error?.response?.data?.message || error.message,
       });
     }
   };

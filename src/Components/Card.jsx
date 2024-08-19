@@ -1,30 +1,44 @@
 import React from "react";
 import Swal from "sweetalert2";
+import { useAuthContext } from "../context/AuthContext";
+import RestaurantService from "../services/restaurant.service";
 
 export const Card = ({ id, img, title, type }) => {
+  const{ user }= useAuthContext();
   const handleDelete = async (id) => {
     try {
-      const response = await fetch("http://localhost:3000/restaurants/" + id, {
-        method: "DELETE",
-      }); //เราส่ง http reqauis ไปโดย method post
-      Swal.fire({
-        title: "Are you sure?",
-        text: "Do you want to delete this restaurant?",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          Swal.fire({
-            title: "Deleted!",
-            text: "Your file has been deleted.",
-            icon: "success",
-          });
-          window.location.reload()
-        }
-      });
+      const response = await RestaurantService.editRestaurant(id, 
+        restaurant
+      );
+      if (response.status === 200) {
+         Swal.fire({
+           icon: "success",
+           title: "สำเร็จ!",
+           text: response.data.message,
+         });
+         navigate("/");
+      }
+      // const response = await fetch("http://localhost:3000/restaurants/" + id, {
+      //   method: "DELETE",
+      // }); //เราส่ง http reqauis ไปโดย method post
+      // Swal.fire({
+      //   title: "Are you sure?",
+      //   text: "Do you want to delete this restaurant?",
+      //   icon: "warning",
+      //   showCancelButton: true,
+      //   confirmButtonColor: "#3085d6",
+      //   cancelButtonColor: "#d33",
+      //   confirmButtonText: "Yes, delete it!",
+      // }).then((result) => {
+      //   if (result.isConfirmed) {
+      //     Swal.fire({
+      //       title: "Deleted!",
+      //       text: "Your file has been deleted.",
+      //       icon: "success",
+      //     });
+      //     window.location.reload();
+      //   }
+      // });
     } catch (error) {
       console.log(error);
     }
@@ -39,14 +53,23 @@ export const Card = ({ id, img, title, type }) => {
         <div className="card-body">
           <h2 className="card-title">{title}</h2>
           <p>{type}</p>
-          <div className="card-actions justify-end">
-            <a href={`/Edit/${id}`} className="btn btn-primary">
-              Edit
-            </a>
-            <button onClick={() => handleDelete(id)} className="btn btn-error">
-              Delete
-            </button>
-          </div>
+          {user &&
+            (user.roles.includes("ROLE_MODERATOR") ||
+              user.roles.includes("ROLE_ADMIN")) && (
+              <div className="card-actions justify-end">
+                <a href={`/Edit/${id}`} className="btn btn-primary">
+                  Edit
+                </a>
+                {user.roles.includes("ROLE_ADMIN") && (
+                  <button
+                    onClick={() => handleDelete(id)}
+                    className="btn btn-error"
+                  >
+                    Delete
+                  </button>
+                )}
+              </div>
+            )}
         </div>
       </div>
     </div>
