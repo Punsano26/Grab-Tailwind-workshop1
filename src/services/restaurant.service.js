@@ -6,8 +6,15 @@ const getAllRestaurant =  async() =>{
     return await api.get(RESTO_API);
 }
 
+//Get restaurant by id
+const getRestaurantByID = async(id) =>{
+    //http://localhost:5000/api/v1/restuarants/1
+    return await api.get(RESTO_API + `/${id}`);
+}
+
 const RestaurantService = {
-    getAllRestaurant
+    getAllRestaurant,
+    getRestaurantByID
 }
 
 export default RestaurantService;
