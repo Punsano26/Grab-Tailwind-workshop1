@@ -18,7 +18,7 @@ const Formadd = () => {
 
   const handleSubmit = async (e) => {
     try {
-      const response = await RestaurantService.addRestaurant(id, restaurant);
+      const response = await RestaurantService.addRestaurant(restaurant);
       if (response.status === 200) {
         Swal.fire({
           icon: "success",
@@ -76,7 +76,7 @@ const Formadd = () => {
     <div>
       <div className="">
         <div className="offset-lg-3 col-lg-6">
-          <form className="container" onSubmit={handleSubmit}>
+          <label className="container">
             <div className="card">
               <div className="card-title justify-center scroll-pt-px flex flex-col">
                 <h2 className="text-3xl">Add Restaurant in Grab!</h2>
@@ -139,7 +139,7 @@ const Formadd = () => {
                   </div>
                   <div className="col-lg-12 text-center py-3 text-lg">
                     <div className="form-group">
-                      <button className="btn btn-success mx-5" type="submit">
+                      <button className="btn btn-success mx-5"  onClick={handleSubmit}>
                         Save
                       </button>
                       <Link to="/" className="btn btn-danger mx-5">
@@ -150,7 +150,7 @@ const Formadd = () => {
                 </div>
               </div>
             </div>
-          </form>
+          </label>
         </div>
       </div>
     </div>

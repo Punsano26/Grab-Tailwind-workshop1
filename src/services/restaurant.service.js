@@ -18,13 +18,13 @@ const editRestaurant = async (id, restaurant) => {
 }
 
 // Delete restaurant data 
-const deleteRestaurant =  async (id, restaurant) => {
-    return await api.delete(RESTO_API + `/${id}`, restaurant);
+const deleteRestaurant =  async (id) => {
+    return await api.delete(RESTO_API + `/${id}`);
 }
 
 //add restauranr data
-const addRestaurant = async (id, restaurant) => {
-    return await api.post(RESTO_API + `/${id}`, restaurant);
+const addRestaurant = async (restaurant) => {
+    return await api.post(RESTO_API , restaurant);
 }
 const RestaurantService = {
     getAllRestaurant,

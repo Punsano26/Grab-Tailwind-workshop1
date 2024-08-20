@@ -4,43 +4,28 @@ import { useAuthContext } from "../context/AuthContext";
 import RestaurantService from "../services/restaurant.service";
 
 export const Card = ({ id, img, title, type }) => {
-  const{ user }= useAuthContext();
+  const { user } = useAuthContext();
   const handleDelete = async (id) => {
     try {
-      const response = await RestaurantService.editRestaurant(id, 
-        restaurant
-      );
+      const response = await RestaurantService.deleteRestaurant(id);
+      console.log(response.data);
       if (response.status === 200) {
-         Swal.fire({
-           icon: "success",
-           title: "สำเร็จ!",
-           text: response.data.message,
-         });
-         navigate("/");
+        Swal.fire({
+          icon: "success",
+          title: "สำเร็จ!",
+          text: response.data.message,
+          position: "top-end",
+          timer: 7000,
+        }).then(() => {
+          window.location.reload();
+        });
       }
-      // const response = await fetch("http://localhost:3000/restaurants/" + id, {
-      //   method: "DELETE",
-      // }); //เราส่ง http reqauis ไปโดย method post
-      // Swal.fire({
-      //   title: "Are you sure?",
-      //   text: "Do you want to delete this restaurant?",
-      //   icon: "warning",
-      //   showCancelButton: true,
-      //   confirmButtonColor: "#3085d6",
-      //   cancelButtonColor: "#d33",
-      //   confirmButtonText: "Yes, delete it!",
-      // }).then((result) => {
-      //   if (result.isConfirmed) {
-      //     Swal.fire({
-      //       title: "Deleted!",
-      //       text: "Your file has been deleted.",
-      //       icon: "success",
-      //     });
-      //     window.location.reload();
-      //   }
-      // });
     } catch (error) {
-      console.log(error);
+      Swal.fire({
+        icon: "error",
+        title: "Restaurant Delete",
+        text: error?.response?.data?.message || error.message,
+      });
     }
   };
 

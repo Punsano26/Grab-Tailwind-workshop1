@@ -50,11 +50,15 @@ const Nav = () => {
               Home
             </a>
           </li>
+         {user &&
+             (user.roles.includes("ROLE_MODERATOR") ||
+              user.roles.includes("ROLE_ADMIN")) && (
           <li>
             <a href="/add" className="text-white hover:text-gray-300">
               Add Restaurant
             </a>
           </li>
+        )}
           <li>
             <a href="#" className="text-white hover:text-gray-300">
               About

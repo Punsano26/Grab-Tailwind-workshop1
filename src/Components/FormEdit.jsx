@@ -17,21 +17,7 @@ const FormEdit = () => {
         setRestaurant(response.data);
       }
     });
-    fetch("http://localhost:3000/restaurants/" + id)
-      .then(
-        // convert เป็น jason
-        (res) => {
-          return res.json();
-        }
-      )
-      // เรียกใช้ State
-      .then((response) => {
-        setRestaurant(response);
-      })
-      // เปลี่ยนเป็น messsage
-      .catch((err) => {
-        console.log(err.message);
-      });
+   
   }, [id]);
 
   const handleChange = (e) => {
@@ -41,7 +27,7 @@ const FormEdit = () => {
 
   const handleSummit = async (e) => {
     try {
-      const response = await RestaurantService.editRestaurant(id, restaurant);console.log(response.data);
+      const response = await RestaurantService.editRestaurant(id, restaurant);
       if (response.status === 200) {
         Swal.fire({
           icon: "success",
@@ -64,7 +50,7 @@ const FormEdit = () => {
     <div>
       <div className="">
         <div className="offset-lg-3 col-lg-6">
-          <form className="container" onSubmit={handleSummit}>
+          <label className="container" >
             <div className="card">
               <div className="card-title justify-center scroll-pt-px flex flex-col">
                 <h2 className="text-3xl">Edit Restaurant in Grab!</h2>
@@ -129,7 +115,7 @@ const FormEdit = () => {
 
                   <div className="col-lg-12 text-center py-3 text-lg">
                     <div className="form-group">
-                      <button className="btn btn-success mx-5" type="submit">
+                      <button className="btn btn-success mx-5" onClick={handleSummit}>
                         Edit Now!
                       </button>
                       <Link to="/" className="btn btn-danger mx-5">
@@ -140,7 +126,7 @@ const FormEdit = () => {
                 </div>
               </div>
             </div>
-          </form>
+          </label>
         </div>
       </div>
     </div>
