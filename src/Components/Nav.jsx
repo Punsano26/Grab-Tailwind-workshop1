@@ -2,11 +2,22 @@ import React, { useState } from "react";
 import UserProfile from "./UserProfile";
 import RegiterButton from "./RegiterButton";
 import LoginButton from "./LoginButton";
+import Search from "./Search";
 import { useAuthContext } from "../context/AuthContext";
 
 const Nav = () => {
   const { user } = useAuthContext();
-
+  const menus = {
+    ROLE_ADMIN: [
+      { name: "Add restaurant", link: "/add" },
+      { name: "Search", link: "/" },
+    ],
+    ROLE_USER: [{ name: "Search", link: "/" }],
+    ROLE_MODERATOR: [
+      { name: "Add restaurant", link: "/add" },
+      { name: "Search", link: "/" },
+    ],
+  };
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -50,30 +61,26 @@ const Nav = () => {
               Home
             </a>
           </li>
-         {user &&
-             (user.roles.includes("ROLE_MODERATOR") ||
-              user.roles.includes("ROLE_ADMIN")) && (
-          <li>
-            <a href="/add" className="text-white hover:text-gray-300">
-              Add Restaurant
-            </a>
-          </li>
-        )}
-          <li>
-            <a href="#" className="text-white hover:text-gray-300">
-              About
-            </a>
-          </li>
-          <li>
-            <a href="#" className="text-white hover:text-gray-300">
-              Report
-            </a>
-          </li>
+            <li>
+              <a href="/add" className="text-white hover:text-gray-300">Add Restaurant</a>
+            </li>
+          {user &&
+            menus[user.roles[0]].map((menuItem) => (
+              <li key={menuItem.name}>
+                <a hlef={menuItem.link} className="text-white hover:text-gray-300">
+                  {menuItem.name}
+                </a>
+              </li>
+            ))}
+          
+
+         
+          
         </ul>
 
         {/* User Profile or Auth Buttons */}
         <div className="hidden md:flex items-center space-x-4">
-        {user && (
+          {user && (
             <div className="space-x-2 flex mr-2">
               Welcome, <span className="text-red-700">{user.username}</span>
               {user.roles.map((role, index) => {
