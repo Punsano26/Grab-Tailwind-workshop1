@@ -24,8 +24,8 @@ const deleteRestaurant =  async (id) => {
 
 //add restauranr data
 const addRestaurant = async (restaurant) => {
-    return await api.post(RESTO_API , restaurant);
-}
+    return await api.post(RESTO_API, restaurant);
+  };
 const RestaurantService = {
     getAllRestaurant,
     getRestaurantByID,

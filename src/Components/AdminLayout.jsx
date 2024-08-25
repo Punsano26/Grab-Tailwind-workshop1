@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { AuthProvider } from "../context/auth.context";
+import { AuthProvider } from "../context/AuthContext";
 import Nav from "./Nav";
 import Footer from "./Footer";
 

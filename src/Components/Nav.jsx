@@ -1,23 +1,29 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import UserProfile from "./UserProfile";
 import RegiterButton from "./RegiterButton";
 import LoginButton from "./LoginButton";
-import Search from "./Search";
 import { useAuthContext } from "../context/AuthContext";
 
 const Nav = () => {
   const { user } = useAuthContext();
   const menus = {
     ROLE_ADMIN: [
-      { name: "Add restaurant", link: "/add" },
-      { name: "Search", link: "/" },
+      { name: "HOME", link: "/" },
+      { name: "ADD", link: "/add" },
     ],
-    ROLE_USER: [{ name: "Search", link: "/" }],
+    ROLE_USER: [{ name: "HOME", link: "/" }],
     ROLE_MODERATOR: [
-      { name: "Add restaurant", link: "/add" },
-      { name: "Search", link: "/" },
+      { name: "HOME", link: "/" },
+      { name: "ADD", link: "/add" },
     ],
   };
+  const roleAbbreviations = {
+    ROLE_ADMIN: "ADMIN",
+    ROLE_MODERATOR: "MOD",
+    ROLE_USER: "USER",
+  };
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -55,30 +61,48 @@ const Nav = () => {
         </div>
 
         {/* Desktop Menu */}
-        <ul className="hidden md:flex space-x-6 text-lg font-medium">
-          <li>
+        <ul
+          tabIndex={0}
+          className="hidden md:flex space-x-24 text-lg font-medium"
+        >
+          {/* <li>
             <a href="/" className="text-white hover:text-gray-300">
               Home
             </a>
           </li>
-            <li>
-              <a href="/add" className="text-white hover:text-gray-300">Add Restaurant</a>
-            </li>
+          <li>
+            <a href="/add" className="text-white hover:text-gray-300">
+              Add Restaurant
+            </a>
+          </li> */}  
           {user &&
-            menus[user.roles[0]].map((menuItem) => (
-              <li key={menuItem.name}>
-                <a hlef={menuItem.link} className="text-white hover:text-gray-300">
-                  {menuItem.name}
-                </a>
-              </li>
-            ))}
-          
-
-         
-          
+              menus[user.roles[0]].map((menuItem) => (
+                <li key={menuItem.name}>
+                  <a
+                    href={menuItem.link}
+                    className="text-white hover:text-gray-300"
+                  >
+                    {menuItem.name}
+                  </a>
+                </li>
+              ))}
         </ul>
-
-        {/* User Profile or Auth Buttons */}
+        {/* <div classname="navbar-center hidden lg:flex">
+          <ul tabIndex={0} classname="menu menu-horizontal px-1 ">
+            {user &&
+              menus[user.roles[0]].map((menuItem) => (
+                <li key={menuItem.name}>
+                  <a
+                    href={menuItem.link}
+                    className="text-white hover:text-gray-300"
+                  >
+                    {menuItem.name}
+                  </a>
+                </li>
+              ))}
+          </ul>
+        </div> */}     
+        {/* User Profile or Auth Buttons */} 
         <div className="hidden md:flex items-center space-x-4">
           {user && (
             <div className="space-x-2 flex mr-2">

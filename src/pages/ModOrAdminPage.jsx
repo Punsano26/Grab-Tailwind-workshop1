@@ -2,7 +2,7 @@ import { Navigate } from "react-router-dom"; //เป็น component
 import { useAuthContext } from "../context/AuthContext";
 
 
-const ModOrAdminPage = (children) => {
+const ModOrAdminPage = ({children}) => {
     const {user} = useAuthContext();
     if(!user){
         return <Navigate to="/login"/>
@@ -15,7 +15,7 @@ const ModOrAdminPage = (children) => {
     }
     
   
-  return <Navigate to="notallowed"/>;
+  return <Navigate to="/notallowed"/>;
 };
 
 export default ModOrAdminPage;

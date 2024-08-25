@@ -1,13 +1,24 @@
 import { createBrowserRouter } from "react-router-dom";
-import Add from "../pages/Add.jsx";
-import Home from "../pages/Home.jsx";
-import Edit from "../pages/Edit.jsx";
-import Login from "../pages/Login.jsx";
-import Register from "../pages/Register.jsx";
+import { lazy } from "react";
+// import Add from "../pages/Add.jsx";
+const Add = lazy(() => import("../pages/Add.jsx"));
+// import Home from "../pages/Home.jsx";
+const Home = lazy(() => import("../pages/Home.jsx"));
+// import Edit from "../pages/Edit.jsx";
+const Edit = lazy(() => import("../pages/Edit.jsx"));
+// import Login from "../pages/Login.jsx";
+const Login = lazy(() => import("../pages/Login.jsx"));
+// import Register from "../pages/Register.jsx";
+const Register = lazy(() => import("../pages/Register.jsx"));
+
 import NotAllowed from "../pages/NotAllowed.jsx";
-import UserProfile from "../Components/UserProfile.jsx";
 import Layout from "../Components/Layout.jsx";
+import AdminLayout from "../Components/AdminLayout.jsx";
 import ModOrAdminPage from "../pages/ModOrAdminPage.jsx";
+import UserPage from "../pages/UserPage.jsx";
+import AdminPage from "../pages/AdminPage.jsx";
+// import ProfileUser from './../pages/ProfileUser';
+const ProfileUser = lazy(() => import("../pages/ProfileUser.jsx"));
 
 const Router = createBrowserRouter([
   {
@@ -20,7 +31,11 @@ const Router = createBrowserRouter([
       },
       {
         path: "add",
-        element: <Add />,
+        element: (
+          <AdminPage>
+            <Add />
+          </AdminPage>
+        ),
       },
       {
         path: "Edit/:id",
@@ -39,22 +54,26 @@ const Router = createBrowserRouter([
         element: <Register />,
       },
       {
-        path: "notallowed",
-        element: <NotAllowed />,
+        path: "profileuser",
+        element: (
+          <UserPage>
+            <ProfileUser />
+          </UserPage>
+        ),
       },
       {
-        path: "userprofile",
-        element: <UserProfile />,
+        path: "notallowed",
+        element: <NotAllowed />,
       },
     ],
   },
 
   {
     path: "/dashboard",
-    element: <div>Admin</div>,
+    element: <AdminLayout />,
     children: [
       {
-        path: "Admin",
+        path: "user",
         element: <div>Dashboard User</div>,
       },
     ],

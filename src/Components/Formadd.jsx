@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Swal from 'sweetalert2';
 import RestaurantService from "../services/restaurant.service";
+
 const Formadd = () => {
   const [restaurant, setRestaurant] = useState({
     img: "",
@@ -19,6 +20,8 @@ const Formadd = () => {
   const handleSubmit = async (e) => {
     try {
       const response = await RestaurantService.addRestaurant(restaurant);
+      console.log(response);
+      
       if (response.status === 200) {
         Swal.fire({
           icon: "success",

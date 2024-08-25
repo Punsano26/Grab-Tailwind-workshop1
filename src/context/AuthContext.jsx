@@ -22,12 +22,13 @@ export const AuthProvider = ({ children }) => {
     const temp = JSON.stringify(user);
     localStorage.setItem("user", temp);
   }, [user]); //call back function สั่งให้มันทำอะไร
-
+//สร้างฟังก์ชันแล้วส่งให้กับ children ใครที่อยู่ภายใต้ AuthProvider จะถือว่าเป็น children ถึงจะเรียกใช้ใน Layout
   return (
     <AuthContext.Provider value={{ user, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
 };
+//สร้างฟังก์ชันที่ชื่อว่า useAuthContext เพื่อเรียกใช้ ีuseContext
 
 export const useAuthContext = () => useContext(AuthContext);

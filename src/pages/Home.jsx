@@ -1,48 +1,35 @@
-
 import React from "react";
-import { NameAndSearch, Search, Shop} from "../Components";
+import { NameAndSearch, Search, Shop } from "../Components";
 import { useState, useEffect } from "react";
 import RestaurantService from "../services/restaurant.service";
 import Swal from "sweetalert2";
 
-
-const Home = () => {
+function Home() {
   const [restaurants, setRestaurants] = useState([]);
   const [filtedRestaurants, setFilterRestaurants] = useState([]);
-   useEffect(() => {
-
-
+  useEffect(() => {
     const getAllRestaurant = async () => {
+      try {
+        const response = await RestaurantService.getAllRestaurant();
 
-    
-    try {
-      const response = await RestaurantService.getAllRestaurant();
-      
-      if(response.status === 200  ) {
-        console.log(response.data);
-        
-      setRestaurants(response.data);
-      setFilterRestaurants(response.data);
+        if (response.status === 200) {
+          setRestaurants(response.data);
+          setFilterRestaurants(response.data);
+        }
+      } catch (error) {
+        Swal.fire({
+          title: "Get All Restaurant error",
+          text: error?.response?.data?.message || error.message,
+          icon: "error",
+        });
       }
-     
-    } catch (error) {
-      
-      Swal.fire({
-        title: "Get All Restaurant error",
-        text: error?.response?.data?.message || error.message,
-        icon: "error",
-      });
-    }
-    console.log();
-    
-  }
+    };
 
-  getAllRestaurant();
+    getAllRestaurant();
   }, []);
   return (
     <>
       <div className="container">
-        
         <NameAndSearch />
         <Search
           restaurants={restaurants}
@@ -52,6 +39,6 @@ const Home = () => {
       </div>
     </>
   );
-};
+}
 
 export default Home;

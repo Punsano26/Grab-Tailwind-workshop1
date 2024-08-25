@@ -5,7 +5,7 @@ import Footer from "./Footer";
 
 const Layout = () => {
   return (
-    <AuthProvider>
+    <AuthProvider> 
       <Nav />
       <div className="my-9">
         
